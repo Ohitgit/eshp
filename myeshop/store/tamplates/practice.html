@@ -1,0 +1,17 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<ul>
+    {% for x in list %}
+{% if x == "apple" %}
+    <li class="text-danger">{{x}}</li>
+    {% else %}
+    <li> {{x}}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+
+
+{% endblock content %}
+

@@ -1,0 +1,314 @@
+{% extends 'webapp/index.html' %}
+{% load static %}
+{% block home %}
+
+<div id="banner-area" class="banner-area" style="background-image:url(/static/images/banner/banner1.jpg)">
+  <div class="banner-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="banner-heading">
+            <h1 class="banner-title">Blog</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blog Detail</li>
+              </ol>
+            </nav>
+          </div>
+        </div><!-- Col end -->
+      </div><!-- Row end -->
+    </div><!-- Container end -->
+  </div><!-- Banner text end -->
+</div><!-- Banner area end -->
+
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-8 mb-5 mb-lg-0">
+
+        <div class="post-content post-single">
+          <div class="post-media post-image">
+            <img loading="lazy" src="{{ blog.image.url }}" class="img-fluid" alt="post-image">
+          </div>
+
+          <div class="post-body">
+            <div class="entry-header">
+              <div class="post-meta">
+                <span class="post-author">
+                  <i class="far fa-user"></i><a href="#"> {{blog.user_id}}</a>
+                </span>
+                <span class="post-cat">
+                  <i class="far fa-folder-open"></i><a href="#">{{blog.category}}</a>
+                </span>
+                <span class="post-meta-date"><i class="far fa-calendar"></i> {{blog.date|date:"F d, Y"}}</span>
+                <span class="post-comment"><i class="far fa-comment"></i> {{ blog.comments.all|length }}<a href="#"
+                    class="comments-link">Comments</a></span>
+              </div>
+              <h2 class="entry-title">
+                {{blog.title}}
+              </h2>
+            </div><!-- header end -->
+
+            <div class="entry-content">
+              <p>{{blog.dsc}}</p>
+
+
+
+              <blockquote>
+                <p>{{blog.dsc1}} <cite>{{blog.write}}</cite></p>
+
+              </blockquote>
+
+
+            </div>
+
+            <div class="tags-area d-flex align-items-center justify-content-between">
+              <div class="post-tags">
+                <a href="#">Construction</a>
+                <a href="#">Safety</a>
+                <a href="#">Planning</a>
+              </div>
+              <div class="share-items">
+                <ul class="post-social-icons list-unstyled">
+                  <li class="social-icons-head">Share:</li>
+                  <li><a href="https://twitter.com/intent/tweet?url=https://example.com/blog-post" target="_blank"><i
+                        class="fab fa-twitter"></i></a></li>
+                  <li> <a href="https://facebook.com/intent/facebook?url=https://example.com/blog-post"
+                      target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                  <li> <a href="https://instagram.com/intent/instagram?url=https://example.com/blog-post"
+                      target="_blank"><i class="fab fa-instagram"></i></a></li>
+
+                </ul>
+              </div>
+            </div>
+
+          </div><!-- post-body end -->
+        </div><!-- post content end -->
+
+        <div class="author-box d-nlock d-sm-flex">
+          <div class="author-img mb-4 mb-md-0">
+            <img loading="lazy" src="{{blog.siteengineerimg.url}}" alt="author">
+          </div>
+          <div class="author-info">
+            <h3>{{blog.siteengineer}}<span>Site Engineer</span></h3>
+            <p class="mb-2">{{blog.dsc2}}</p>
+
+
+          </div>
+        </div> <!-- Author box end -->
+       
+        <h3> Comments {{ blog.comments.all|length }} </h3>
+       
+        <!-- Post comment start -->
+        {% if blog.comments.all %}
+        {% for x in blog.comments.all %}
+     
+        <div id="comments" class="comments-area">
+      
+
+          <ul class="comments-list">
+            <li>
+
+              <div class="comment d-flex">
+                <img loading="lazy" class="comment-avatar" alt="author" src="{%static 'images/news/avator1.png'%}">
+                <div class="comment-body">
+                  <div class="meta-data">
+                    <span class="comment-author mr-3">{{x.name}}</span>
+                    <span class="comment-date float-right">{{x.date|date:"F d, Y"}}</span>
+                  </div>
+                  <div class="comment-content">
+                    <p>{{x.desc}}</p>
+                  </div>
+                  <div class="text-left">
+                    <a class="comment-reply font-weight-bold blogcomment{{x.id}}" style="cursor: pointer;">Reply</a>
+                  </div>
+                </div>
+              </div>
+              <form method="post" action="{% url 'add_reply' x.id  blog.slug %}"class="blogreply{{x.id}}" style="display: none;">
+                {% csrf_token %}
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="message"><textarea class="form-control required-field" name="content" id="message"
+                        placeholder="Your Comment" rows="10" required></textarea></label>
+                  </div>
+                </div><!-- Col 12 end -->
+  
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="message"><input class="form-control required-field" name="author_name" id="message" placeholder="Name"></textarea></label>
+                  </div>
+                </div><!-- Col 12 end -->
+                <button type="submit" class="btn btn-primary" >Reply</button>
+            </form>
+
+        {% if x.replies.all %}
+               <ul class="comments-reply ">
+                {% for reply in x.replies.all %}
+                <li>
+                  <div class="comment d-flex">
+                    <img loading="lazy" class="comment-avatar" alt="author" src="{%static 'images/news/avator2.png'%}">
+                    <div class="comment-body">
+                      <div class="meta-data">
+                        <span class="comment-author mr-3">{{ reply.author_name }}</span>
+                        <span class="comment-date float-right">{{ reply.created_at }}</span>
+                      </div>
+                      <div class="comment-content">
+                        <p>{{ reply.content }}</p>
+                      </div>
+                      <div class="text-left">
+                        <a class="comment-reply font-weight-bold" href="#">Reply</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul> 
+              {% endif %}
+        </div><!-- Post comment end -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script>
+          $(document).ready(function () {
+            $(".blogcomment{{x.id}}").click(function () {
+              var x = $(".blogreply{{x.id}}").show();
+
+
+            });
+
+
+          });
+        </script>
+       
+        {% endfor %}
+        {% else %}
+        <h6 class="mt-4"> No Comments </h6>
+        {% endif %}
+        <div class="comments-form border-box">
+          <h3 class="title-normal">Add a comment</h3>
+          {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %}
+              class="{{ message.tags }} alert alert-success w-100 alert-dismissible fade show list-unstyled" {% endif %}
+              role="alert">{{ message }}
+              <button type="button" class="close pt-2" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              </li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+          <form role="form" action="{% url 'add_comment' blog.id blog.slug %}" method="post">
+
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="message"><textarea class="form-control required-field" name="message" id="message"
+                      placeholder="Your Comment" rows="10" required></textarea></label>
+                </div>
+              </div><!-- Col 12 end -->
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name"><input class="form-control" name="name" id="name" placeholder="Your Name"
+                      type="text" required></label>
+                </div>
+              </div><!-- Col 4 end -->
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="email"><input class="form-control" name="email" id="email" placeholder="Your Email"
+                      type="email" required></label>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="website"><input class="form-control" name="website" id="website"
+                      placeholder="Your Website" type="text" required></label>
+                </div>
+              </div>
+
+            </div><!-- Form row end -->
+            <div class="clearfix">
+              <button class="btn btn-primary" type="submit" aria-label="post-comment">Post Comment</button>
+            </div>
+          </form><!-- Form end -->
+        </div><!-- Comments form end -->
+      </div><!-- Content Col end -->
+
+      <div class="col-lg-4">
+
+        <div class="sidebar sidebar-right">
+          <div class="widget recent-posts">
+            <h3 class="widget-title">Recent Posts</h3>
+            <ul class="list-unstyled">
+              {% for x in blogs %}
+              <li class="d-flex align-items-center">
+                <div class="posts-thumb">
+                  <a href="#"><img loading="lazy" alt="img" src="{{x.image.url}}"></a>
+                </div>
+                <div class="post-info">
+                  <h4 class="entry-title">
+                    <a href="#">{{x.dsc|truncatewords:20}}</a>
+                  </h4>
+                </div>
+              </li><!-- 1st post end-->
+              {% endfor %}
+
+            </ul>
+
+          </div><!-- Recent post end -->
+
+          <div class="widget">
+            <h3 class="widget-title">Categories</h3>
+            <ul class="arrow nav nav-tabs">
+              <li><a href="#">Construction</a></li>
+              <li><a href="#">Commercial</a></li>
+              <li><a href="#">Building</a></li>
+              <li><a href="#">Safety</a></li>
+              <li><a href="#">Structure</a></li>
+            </ul>
+          </div><!-- Categories end -->
+
+          <div class="widget">
+            <h3 class="widget-title">Archives </h3>
+            <ul class="arrow nav nav-tabs">
+              <li><a href="#">Feburay 2016</a></li>
+              <li><a href="#">January 2016</a></li>
+              <li><a href="#">December 2015</a></li>
+              <li><a href="#">November 2015</a></li>
+              <li><a href="#">October 2015</a></li>
+            </ul>
+          </div><!-- Archives end -->
+
+          <div class="widget widget-tags">
+            <h3 class="widget-title">Tags </h3>
+
+            <ul class="list-unstyled">
+              <li><a href="#">Construction</a></li>
+              <li><a href="#">Design</a></li>
+              <li><a href="#">Project</a></li>
+              <li><a href="#">Building</a></li>
+              <li><a href="#">Finance</a></li>
+              <li><a href="#">Safety</a></li>
+              <li><a href="#">Contracting</a></li>
+              <li><a href="#">Planning</a></li>
+            </ul>
+          </div><!-- Tags end -->
+
+
+        </div><!-- Sidebar end -->
+      </div><!-- Sidebar Col end -->
+
+    </div><!-- Main row end -->
+
+  </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+
+
+
+{%endblock%}

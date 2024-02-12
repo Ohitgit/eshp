@@ -1,0 +1,54 @@
+{% extends 'base/index.html' %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+ {{message}}
+  </div>
+  {% endfor %}
+{% endif %}
+<div class="container col-lg-6">
+    <div class="row">
+
+       <form action="">
+           <div class="form-group">
+               <label>Countey</label>
+               <select class="form-control" id="country" onchange="countryfield()">
+                {% for i in countrys %}
+                 <option value="{{i.id}}">{{i.name}}</option>
+                   {% endfor %}
+               </select>
+           </div>
+           <div class="form-group">
+               <label>State</label>
+               <select class="form-control" id="state" onchange="statefield()">
+                {% for y in state %}
+                 <option value="{{y.id}}">{{y.name}}</option>
+                   {% endfor %}
+               </select>
+           </div>
+           <div class="form-group">
+               <label>District</label>
+               <select class="form-control" id="district">
+                {% for z in district %}
+                 <option value="{{z.id}}">{{z.name}}</option>
+                   {% endfor %}
+               </select>
+           </div>
+           <div class="form-group">
+            <button class="btn btn-primary">Submit</button>
+          </div>
+       </form>
+    </div>
+</div>
+<script>
+    function countryfield()
+    {
+     countryid=document.getElementById('country').value
+      alert(countryid)
+      window.location = "/?country="+countryid;
+
+    }
+</script>
+
+{% endblock content %}

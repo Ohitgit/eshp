@@ -1,0 +1,42 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Singup</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'  %}">
+</head>
+<body>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+ {{message}}
+  </div>
+  {% endfor %}
+{% endif %}
+<div class="container col-lg-6">
+    <div class="row">
+        <form action="" method="post">
+            {% csrf_token %}
+         <div class="form-group">
+             <label>Name:</label>
+             <input class="form-control" placeholder="please enter name" name="username">
+         </div>
+            <div class="form-group">
+             <label>email:</label>
+             <input type="email" class="form-control" placeholder="please enter name" name="email">
+         </div>
+            <div class="form-group">
+             <label>Password:</label>
+             <input type="password" class="form-control" placeholder="please enter name" name="password">
+         </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

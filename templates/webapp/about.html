@@ -1,0 +1,249 @@
+{% extends 'webapp/index.html' %}
+{% load static %}
+{% block home %}
+<div id="banner-area" class="banner-area" style="background-image:url(/static/images/banner/banner1.jpg)">
+  <div class="banner-text">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="banner-heading">
+                <h1 class="banner-title">About</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item"><a href="#">company</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                    </ol>
+                </nav>
+              </div>
+          </div><!-- Col end -->
+        </div><!-- Row end -->
+    </div><!-- Container end -->
+  </div><!-- Banner text end -->
+</div><!-- Banner area end --> 
+
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+          <h3 class="column-title">Who We Are</h3>
+          <p>M/S. M.K MINERALS is an authorized mining & minerals material trading company established in the year 2020 and M/S M.K. Logistics also established by Tanmay Jain . M/S M.K Minerals supply various types of minerals such as iron ore / pellets, coal, limestone, dolomite, quartz, manganese ore, ball clay, coal and etc. The company is having experience in dealing with both public & private sector which includes various Thermal Power Plants, Distilleries, Solvents & Refinery, Chemical Industries, Rolling mills, guillotine plants, paper mills, refractory, textile industries, cement plants, Foundry industries, Milk Processing units, lime & Mineral Industries, many other minerals traders and traditional brick makers</p>
+          <blockquote><p>Safe Logistic & Transport Solutions That Saves Our Valuable Time!</p></blockquote>
+
+        </div><!-- Col end -->
+
+        <div class="col-lg-6 mt-5 mt-lg-0">
+          
+          <div id="page-slider" class="page-slider small-bg">
+
+              <div class="item" style="background-image:url(/static/images/slider-pages/slide-page1.jpg)">
+                <div class="container">
+                    <div class="box-slider-content">
+                      <div class="box-slider-text">
+                          <h2 class="box-slide-title">Leadership</h2>
+                      </div>    
+                    </div>
+                </div>
+              </div><!-- Item 1 end -->
+
+              <div class="item" style="background-image:url(/static/images/slider-pages/slide-page2.jpg)">
+                <div class="container">
+                    <div class="box-slider-content">
+                      <div class="box-slider-text">
+                          <h2 class="box-slide-title">Relationships</h2>
+                      </div>    
+                    </div>
+                </div>
+              </div><!-- Item 1 end -->
+
+              <div class="item" style="background-image:url(/static/images/slider-pages/slide-page3.jpg)">
+                <div class="container">
+                    <div class="box-slider-content">
+                      <div class="box-slider-text">
+                          <h2 class="box-slide-title">Performance</h2>
+                      </div>    
+                    </div>
+                </div>
+              </div><!-- Item 1 end -->
+          </div><!-- Page slider end-->          
+        
+
+        </div><!-- Col end -->
+    </div><!-- Content row end -->
+
+
+    <div class="row">
+     
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <img loading="lazy" src="{{ about.img.url }}" class="img-fluid" alt="facts-img">
+
+      </div>
+      <div class="col-lg-6">
+        <h3 class="column-title">Vison</h3>
+        <p> {{ about.content1 }}</p>
+
+      </div><!-- Col end -->
+ 
+   <!-- Col end -->
+  </div><!-- Content row end -->
+
+  <div class="row">
+ 
+    <div class="col-lg-6">
+      <h3 class="column-title">Our Philosophy
+      </h3>
+      <p>{{ about.content2 }}</p>
+
+    </div><!-- Col end -->
+  
+    <div class="col-lg-6 mt-5 mt-lg-0">
+      <img loading="lazy" src="{{ about.img1.url }}" alt="facts-img" >
+
+    </div>
+ 
+
+ <!-- Col end -->
+</div><!-- Content row end -->
+
+
+<div class="row">
+
+
+  <div class="col-lg-6 mt-5 mt-lg-0">
+    <img loading="lazy" src="{{ about.img2.url }}" alt="facts-img" class="img-fluid">
+
+  </div>
+    
+  <div class="col-lg-6">
+    <h3 class="column-title">Our Goal
+
+    </h3>
+    <p>{{ about.content3 }}</p>
+
+  </div><!-- Col end -->
+ 
+<!-- Col end -->
+</div><!-- Content row end -->
+
+  </div><!-- Container end -->
+</section><!-- Main container end -->
+
+
+<section id="facts" class="facts-area dark-bg">
+  <div class="container">
+    <div class="facts-wrapper">
+        <div class="row">
+          <div class="col-md-3 col-sm-6 ts-facts">
+          
+              <div class="ts-facts-img">
+                <img loading="lazy" src="{%static 'images/icon-image/fact1.png'%}" alt="facts-img">
+              </div>
+            
+              <div class="ts-facts-content">
+                <h2 class="ts-facts-num"><span class="counterUp" data-count="1789">0</span></h2>
+                <h3 class="ts-facts-title">Total Projects</h3>
+              </div>
+          </div><!-- Col end -->
+
+          <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-sm-0">
+              <div class="ts-facts-img">
+                <img loading="lazy" src="{%static 'images/icon-image/fact2.png'%}" alt="facts-img">
+              </div>
+              <div class="ts-facts-content">
+                <h2 class="ts-facts-num"><span class="counterUp" data-count="647">0</span></h2>
+                <h3 class="ts-facts-title">Staff Members</h3>
+              </div>
+          </div><!-- Col end -->
+
+          <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-md-0">
+              <div class="ts-facts-img">
+                <img loading="lazy" src="{%static 'images/icon-image/fact3.png'%}" alt="facts-img">
+              </div>
+              <div class="ts-facts-content">
+                <h2 class="ts-facts-num"><span class="counterUp" data-count="4000">0</span></h2>
+                <h3 class="ts-facts-title">Hours of Work</h3>
+              </div>
+          </div><!-- Col end -->
+
+          <div class="col-md-3 col-sm-6 ts-facts mt-5 mt-md-0">
+              <div class="ts-facts-img">
+                <img loading="lazy" src="{%static 'images/icon-image/fact4.png'%}" alt="facts-img">
+              </div>
+              <div class="ts-facts-content">
+                <h2 class="ts-facts-num"><span class="counterUp" data-count="44">0</span></h2>
+                <h3 class="ts-facts-title">Countries Experience</h3>
+              </div>
+          </div><!-- Col end -->
+
+        </div> <!-- Facts end -->
+    </div>
+    <!--/ Content row end -->
+  </div>
+  <!--/ Container end -->
+</section><!-- Facts end -->
+
+<section id="ts-team" class="ts-team">
+  <div class="container">
+    <div class="row text-center">
+        <div class="col-lg-12">
+          <h2 class="section-title">Quality Service</h2>
+          <h3 class="section-sub-title">Professional Team</h3>
+        </div>
+    </div><!--/ Title row end -->
+
+    <div class="row">
+        <div class="col-lg-12">
+          <div id="team-slide" class="team-slide">
+            {% for x in silde %}
+              <div class="item">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                      <img loading="lazy" class="w-100" src="{{x.engineerimg.url}}" alt="team-img">
+                    </div>
+                    <div class="ts-team-content">
+                      <h3 class="ts-name">{{x.name}}</h3>
+                      <p class="ts-designation">{{x.des}}</p>
+                      <p class="ts-description">{{x.engineerdesc}}</p>
+                      <div class="team-social-icons">
+                          <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                      </div><!--/ social-icons-->
+                    </div>
+                </div><!--/ Team wrapper end -->
+              </div><!-- Team 1 end -->
+              {% endfor %}
+             
+              <!-- Team 2 end -->
+
+              {% for x in silde1 %}
+              <div class="item">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                      <img loading="lazy" class="w-100" src="{{x.engineerimg.url}}" alt="team-img">
+                    </div>
+                    <div class="ts-team-content">
+                      <h3 class="ts-name">{{x.name}}</h3>
+                      <p class="ts-designation">{{x.des}}</p>
+                      <p class="ts-description">{{x.engineerdesc}}</p>
+                      <div class="team-social-icons">
+                          <a target="_blank" href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-google-plus"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                      </div><!--/ social-icons-->
+                    </div>
+                </div><!--/ Team wrapper end -->
+              </div><!-- Team 1 end -->
+              {% endfor %}
+
+            
+
+          </div><!-- Team slide end -->
+        </div>
+    </div><!--/ Content row end -->
+  </div><!--/ Container end -->
+</section><!--/ Team end -->
+
+ {%endblock%}

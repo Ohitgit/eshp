@@ -1,0 +1,457 @@
+{% extends 'webapp/index.html' %} {% load i18n %} {% load static %} {% block home %}
+
+    <div class="container-fluid">
+        
+    
+        <section class="d-block content-block pt-3 pb-3">
+                        
+
+            <div class="container-fluid mt-5">
+            
+            
+            
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 bg-b text-center pt-2">
+                        <h5 class="text-white">
+                            Kindly provide fund transfer details below
+                        </h5>
+                    </div>
+                </div>
+                
+                <form method="POST" id="AddEmpModal" enctype="multipart/form-data">
+                   {% csrf_token %}
+                    <div class="row">
+            
+                        <table  class="table table-sm table-bordered mt-3" style="border-collapse: separate;border-spacing: 0 2px;">
+                            <tbody>
+                            <tr>
+                                <th class="pt-2">
+                                    Amount
+                                </th>
+                                <td><input type="text" onkeypress="return validateNumber(event)" id="amount" onblur="convert_amt()" name="amount" value="0.0"  class="form-control border-none amount" required=""></td>
+                            </tr>
+							
+                            <tr class="table_form">
+                                <th class="pt-2">
+                                   <label class="d-flex justify-content-between">Convert Amount(USD)<input type="radio" class="curr_code" id="curr_code" name="curr_code" value="USD" ></label>
+								   <input type="hidden" id="currency" name="currency" value="">
+								    <input type="hidden" id="charge" name="charge" value="">
+                                </th>
+                                <td><input type="text" id="custId" name="custId" value="0.0" class="form-control border-none results" readonly=""></td>
+                            </tr>
+
+                            <tr class="table_form">
+                                <th class="pt-2">
+                                   <label class="d-flex justify-content-between">Convert Amount(INR)<input type="radio" class="curr_codes" id="curr_code" name="curr_code" value="INR"  ></label>
+                                </th>
+                                <td><input type="text" id="convertedId" name="convertedId" value="0.0" class="form-control border-none  result" readonly=""></td>
+                            </tr>                            
+                            <tr>
+                                <th class="pt-2">
+                                    Reference No. / Transaction ID
+                                </th>
+                                <td> <input type="text" id="refno" name="refno" class="form-control border-none"  required=""></td>
+                            </tr>
+                            <tr>
+                                <th class="pt-2">
+                                    Upload Screenshot
+                                </th>
+                                <td><input type="file" class="form-control border-none" name="depositdoc" id="depositdoc" required=""></td>
+                                <!-- 
+                                <a class="btn btn-default bg-blue text-white">Choose File</a> -->
+                            </tr>
+                        </tbody></table>
+                    </div>
+                    
+                    <span id="message" style="display: none;">{{message}}</span> 
+                    <span id="icon" style="display: none;">{{icon}}</span> 
+                    
+            
+            
+            
+            
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 text-center">
+                            <a href="/clientapp/net_banking_continue" class="btn btn-danger  text-white">
+                            BACK
+                            </a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 text-center" id="btn_loader">
+                             <button type="submit"  class="btn btn-warning text-white">SUBMIT</button>
+                            {% comment %} <button type="submit" id="depreq" class="btn btn-dp text-white">SUBMIT</button> {% endcomment %}
+                        </div>
+                        
+                        
+            
+                    </div>
+                </form>
+            
+            
+            </div>
+            <div class="container  mt-5" style="border:1px solid red">
+                <div class="col-md-4 col-lg-4">
+                    <h5 class="text-red pt-2">NOTE
+                    </h5>
+                </div>
+            
+                <ul class="ul text-b pl-2 pr-2">
+                    <li class=" text-b">Once fund transferred to DivePay Account give the correct details of that in the above table.
+                    </li>
+                    <li class=" text-b">
+                        Take a screenshot of fund transferred to DivePay Account &amp; upload the same for verification.</li>
+                    <li class=" text-b">
+                        Once details submitted it shows pending in your wallet &amp; it will credit to your DivePay account within 24 - 26 hours.
+                    </li>
+            
+                </ul>
+            
+            </div>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <script>
+			function validateNumber(e) {
+            const pattern = /^[0-9]$/;
+
+            return pattern.test(e.key )
+        }
+			$( document ).ready(function() {
+				document.getElementById('btn_loader').innerHTML=''
+			});
+			function convert_amt(){
+				amount=document.getElementById("amount").value
+				var base_url = window.location.origin;
+				$.get(base_url+"/cyprto_currency/"+amount, function(data) {
+					  console.log('=====INr====',data)
+					  
+					  document.getElementById("convertedId").value = data.INR;
+					  document.getElementById("custId").value = data.USD;
+					  
+					  
+					  
+					});
+			}
+				
+				$(".table_form input") // select the radio by its id
+				.on('change', function(){ // bind a function to the change event
+				amount=document.getElementById("amount").value
+				
+				document.getElementById('btn_loader').innerHTML='<button type="submit" id="depreq" class="btn btn-dp text-white">SUBMIT</button>'
+				document.getElementById("currency").value = $('input[name="curr_code"]:checked').val();
+				var base_url = window.location.origin;
+				if($('input[name="curr_code"]:checked').val()=="INR"){
+				$.get(base_url+"cyprto_currencyinr/"+amount+"/", function(data) {
+					  console.log('=====INr====',data)
+					  
+					  
+					  document.getElementById("currency").value = $('input[name="curr_code"]:checked').val();
+					  document.getElementById("charge").value = data.charge
+					  
+					});
+					}else{
+					$.get(base_url+"/cyprto_currencyusd/"+amount+"/" , function(data) {
+					  console.log('=====usd====',data)
+					  
+	
+					  document.getElementById("currency").value = $('input[name="curr_code"]:checked').val();
+					  document.getElementById("charge").value = data.charge
+					});
+					}
+						});
+                function currencyConvertor() {
+                    
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            
+                            let usd_amount = document.getElementById("amount").value;
+                            let currency_value = JSON.parse(this.responseText);
+                            var acc_curr = "USD";
+                            var rat = "3.0";
+                            session_val=sessionStorage.getItem("currency");
+                            console.log('----usdkkk---',session_val,rat)
+                            // var eur_rat = "";
+                            // var gbp_rat = "";
+                            if (acc_curr == "USD") {
+                                currency_value = currency_value.rates.USD;
+                                var con = currency_value * usd_amount;
+                                var charge = con * rat / 100;
+                                var convert = con - charge;
+                                //return convert
+                                console.log('----usd---',convert)
+                                document.getElementById("custId").value = convert.toFixed(2);
+                            }
+                            // } else if (acc_curr.value == "GBP") {
+                            //     currency_value = currency_value.rates.GBP;
+                            //     var con = currency_value * usd_amount;
+                            //     var charge = con * gbp_rat / 100;
+                            //     var convert = con - charge;
+                            //     document.getElementById("txt_inr_amount").value = convert.toFixed(2);
+                            // } else {
+                            //     currency_value = currency_value.rates.USD;
+                            //     var con = currency_value * usd_amount;
+                            //     var charge = con * rat / 100;
+                            //     var convert = con - charge;
+                            //     document.getElementById("txt_inr_amount").value = convert.toFixed(2);
+                            // };
+                        };
+                    };
+                    xhttp.open("GET", "https://api.exchangerate.host/latest?base=INR&v=_actual_date_", true);
+                    xhttp.send();
+                }
+            </script>
+            <script>
+            let message=''
+             message = document.getElementById('message').innerText;
+                 var flg=document.getElementById('icon').innerText;
+                 console.log('---------',flg)
+                if (message) { 
+                    if(flg == "success"){
+                        swal({
+                            title: "Action Successful",
+                            text: message,
+                            icon: "success",
+                            closeOnClickOutside: false,
+                            closeOnEsc: false,
+                        }).then(function() {
+                            // window.location = "";
+                            window.location.href = '';
+                        });
+                    }else if(flg == "warning"){
+                        swal({
+                            title: "Action Unsuccessful",
+                            text: message,
+                            icon: "warning",
+                            closeOnClickOutside: false,
+                            closeOnEsc: false,
+                        }).then(function() {
+                            // window.location = "";
+                             window.location.href = '';
+                        }); 
+                    }
+                }
+                
+                
+                
+            </script>
+            <script src=" https://code.jquery.com/jquery-3.5.1.min.js " integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin=" anonymous "></script>
+            <script>
+                // Change the type of input to password or text
+                $('#depreq').on('click', function(e) {
+                   
+                    var amt = document.getElementById("amount")
+                    
+                    var ref = document.getElementById("refno")
+                    var dep = document.getElementById("depositdoc")
+                    var wal="3892.1"
+                    var currency="USD"
+                    var status="U"
+                    
+                    var amt1=document.getElementById("custId")
+                    console.log("cheking------- ",amt1.value);
+                    var sum=parseFloat(amt1.value)+parseFloat(wal)
+                    console.log("cheking------- ",sum);
+                    if (parseFloat(amt1.value)>0 && ref.value != "" && dep.value != "") {
+                        
+                
+                        
+                            document.getElementById('btn_loader').innerHTML='<button class="btn btn-primary w-100" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Please Wait...</button>'
+                                $('#AddEmpModal').submit();
+            
+                        
+                        <!-- else{
+                            
+                                e.preventDefault()
+                            Swal.fire({
+                                    title: 'Note',
+                                    text: 'Your profile not verified yet, Please contact Admin to get Access..!',
+                                    icon: 'info',
+                                    confirmButtonText: 'OK',
+                                        // showCancelButton: true
+                                    });
+                        } -->
+                        
+                        //document.querySelector('#depreq').hidden = true;
+                        //document.querySelector('#loading').hidden = false;
+                        
+                    } else {
+                        e.preventDefault()
+                        if (parseInt(amt.value)==0){
+                            console.log("cheking------- ",parseFloat(amt.value));
+                            document.getElementById("amount").focus();
+                        }else if(ref.value == ""){
+                            document.getElementById("refno").focus();
+                        }else{
+                        document.getElementById("depositdoc").focus();
+                        }
+                        document.querySelector('#depreq').hidden = false;
+                        document.querySelector('#loading').hidden = true;
+            
+                    };
+                });
+                
+                /*$('#depreq').on('click',function(){
+                
+                
+                 });*/
+            
+            </script>
+            
+            
+            <div><br> 
+                                    <!-- <table class="table table-bordered table-sm" style="border-collapse: separate;border-spacing: 0 2px;">
+                                        <thead class="bg-b">
+                                            <tr>
+                                                <td colspan="12" class="text-center text-white" style="border-style: none;">
+                                                    Recent Transaction
+            
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center">
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="12"><a class="btn btn-primary btn-block">
+                                                        Complete History
+                                                    </a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>-->
+                                    <div class="container-fluid d-block  d-flex justify-content-center mt-5">
+                                        <div>
+                                            <img src="/static/image/clientap_image/G.png " class="social-icon" alt="Divepay Logo ">
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div>
+                                            <img src="/static/image/clientap_image/skype.png " class="social-icon" alt="Divepay Logo ">
+                                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div>
+                                            <img src="/static/image/clientap_image/livechat.png " class="social-icon" alt="Divepay Logo ">
+                                        </div>
+                                    </div>
+                                    <div class="relative-bottom text-center mt-5">
+                                        <p class="text-red">Copyright © 2021 DIVEPAY. All rights reserved.</p>
+                                    </div>
+                                </div></section>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            let message = 'None'
+            if (message !="None") {
+                swal({
+                    title: "Action Successful",
+                    text: message,
+                    icon: "success",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                }).then(function() {
+                    // window.location = "";
+                    window.location.href = '';
+                });
+            }
+			
+			
+        </script>
+        <script src=" https://code.jquery.com/jquery-3.5.1.min.js " integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin=" anonymous "></script>
+        <script>
+            // Change the type of input to password or text
+            $('#depreq').on('click', function() {
+                console.log("cheking------- ");
+                var amt = document.getElementById("amount")
+                var ref = document.getElementById("refno")
+                var dep = document.getElementById("depositdoc")
+                if (amt.value != "" && ref.value != "" && dep.value != ""){
+                    document.querySelector('#depreq').hidden = true;
+                    document.querySelector('#loading').hidden = false;
+                }else{
+                    document.querySelector('#depreq').hidden = false;
+                    document.querySelector('#loading').hidden = true;
+                   
+                };
+            });
+        </script>
+    
+        <div><br> 
+        
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function currencyConvertor() {
+            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    
+                    let usd_amount = document.getElementById("amount").value;
+                    let currency_value = JSON.parse(this.responseText);
+                    var acc_curr = "USD";
+                    var rat = "";
+                    session_val=sessionStorage.getItem("currency");
+                    console.log('----usd---',acc_curr)
+                    // var eur_rat = "";
+                    // var gbp_rat = "";
+                    if (acc_curr == "USD") {
+                        currency_value = currency_value.rates.USD;
+                        var con = currency_value * usd_amount;
+                        var charge = con * rat / 100;
+                        var convert = con - charge;
+                        //return convert
+                        //console.log('----usd---',convert)
+                        document.getElementById("custId").value = convert.toFixed(2);
+                    }
+                    // } else if (acc_curr.value == "GBP") {
+                    //     currency_value = currency_value.rates.GBP;
+                    //     var con = currency_value * usd_amount;
+                    //     var charge = con * gbp_rat / 100;
+                    //     var convert = con - charge;
+                    //     document.getElementById("txt_inr_amount").value = convert.toFixed(2);
+                    // } else {
+                    //     currency_value = currency_value.rates.USD;
+                    //     var con = currency_value * usd_amount;
+                    //     var charge = con * rat / 100;
+                    //     var convert = con - charge;
+                    //     document.getElementById("txt_inr_amount").value = convert.toFixed(2);
+                    // };
+                };
+            };
+            xhttp.open("GET", "https://api.exchangerate.host/latest?base=INR&v=_actual_date_", true);
+            xhttp.send();
+        }
+    </script>
+    <script>
+        function charge_amount(){
+            var amt=$('#amount').val()
+            debt_amt=parseFloat(amt)-(parseFloat(amt)*3/100)
+            document.getElementById('dp').value=debt_amt
+            document.getElementById('charge').value=3.00
+    
+        }
+		$( document ).ready(function() {
+			let amountk = sessionStorage.getItem("amt");
+			
+				document.getElementById("amount").value = amountk;
+		});
+    </script>
+
+    <script>
+    
+    
+
+    </script>
+        </div>
+    </div>
+{%endblock%}

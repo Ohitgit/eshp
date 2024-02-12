@@ -1,0 +1,287 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta http-equiv="Content-Language" content="en">
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>MK Group</title>
+   <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+   <meta name="description" content="Elixir Thai SPA">
+   <meta name="msapplication-tap-highlight" content="no">
+   <link href="/static/dashboard/css/main.css" rel="stylesheet">
+
+   <style>
+      .dt-button {
+         border-radius: 3px !important;
+         border: 1px solid #3f6ad8 !important;
+         background: #3f6ad8 !important;
+         color: white !important;
+         font-weight: 700;
+         width: 64px;
+         text-align: center;
+      }
+   </style>
+
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+ 
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+       <!--header starts here-->
+       <div class="app-header header-shadow">
+          <div class="app-header__logo">
+             <div class="logo-src">MK Group</div>
+             <div class="header__pane ml-auto">
+                <div>
+                   <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                      data-class="closed-sidebar">
+                      <span class="hamburger-box">
+                         <span class="hamburger-inner"></span>
+                      </span>
+                   </button>
+                </div>
+             </div>
+          </div>
+          <div class="app-header__mobile-menu">
+             <div>
+                <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                   <span class="hamburger-box">
+                      <span class="hamburger-inner"></span>
+                   </span>
+                </button>
+             </div>
+          </div>
+          <div class="app-header__menu">
+             <span>
+                <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                   <span class="btn-icon-wrapper">
+                      <i class="fa fa-ellipsis-v fa-w-6"></i>
+                   </span>
+                </button>
+             </span>
+          </div>
+          <div class="app-header__content">
+             <div class="app-header-left">
+                <div class="search-wrapper">
+                   <div class="input-holder">
+                      <input type="text" class="search-input" placeholder="Type to search">
+                      <button class="search-icon"><span></span></button>
+                   </div>
+                   <button class="close"></button>
+                </div>
+             </div>
+             <div class="app-header-right">
+                <div class="header-btn-lg pr-0">
+                   <div class="widget-content p-0">
+                      <div class="widget-content-wrapper">
+                         <div class="widget-content-left">
+                            <div class="btn-group">
+                               <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                  <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
+                                  <i class="fa fa-power-off fa-lg ml-2 mr-2 opacity-8"></i>
+                               </a>
+                               <div tabindex="-1" role="menu" aria-hidden="true"
+                                  class="dropdown-menu dropdown-menu-right">
+                                  <a type="button" tabindex="0" class="dropdown-item" href="#">Are you sure to
+                                     Sign-out?</a>
+                               </div>
+                            </div>
+                         </div>
+                         <div class="widget-content-left  ml-3 header-user-info">
+                            <div class="widget-heading">
+                               UserName
+                            </div>
+                            <div class="widget-subheading">
+                               SoreManager
+                            </div>
+                         </div>
+                        
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+ 
+       <div class="app-main">
+          <div class="app-sidebar sidebar-shadow">
+             <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                   <div>
+                      <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                         data-class="closed-sidebar">
+                         <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                         </span>
+                      </button>
+                   </div>
+                </div>
+             </div>
+             <div class="app-header__mobile-menu">
+                <div>
+                   <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                      <span class="hamburger-box">
+                         <span class="hamburger-inner"></span>
+                      </span>
+                   </button>
+                </div>
+             </div>
+             <div class="app-header__menu">
+                <span>
+                   <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                      <span class="btn-icon-wrapper">
+                         <i class="fa fa-ellipsis-v fa-w-6"></i>
+                      </span>
+                   </button>
+                </span>
+             </div>
+             <!--left sidebar start-->
+             <div class="scrollbar-sidebar overflow-auto">
+                <div class="app-sidebar__inner">
+                   <ul class="vertical-nav-menu">
+ 
+                      <li>
+                         <a href="{%url 'dashboard'%}">
+                            <i class="metismenu-icon fa fa-dashboard fa-fw fa-lg"></i>
+                            Dashboard
+                         </a>
+                      </li>
+                      <li>
+                        <a href="{%url 'cms'%}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                           CMS
+                        </a>
+                     </li>
+                      <li>
+                        <a href="{%url 'category' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                           Category
+                        </a>
+                     </li>
+
+                      <li>
+                        <a href="{%url 'product' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                           Product
+                        </a>
+                     </li>
+                      <li>
+                        <a href="{%url 'file' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                            File
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="{%url 'testmonials' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                            Testmonial
+                        </a>
+                     </li>
+                     <li>
+                        <a href="{%url 'faqs' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                            Faq
+                        </a>
+                     </li>
+                     <li>
+                        <a href="{%url 'product_space' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                           Productspacefication
+                        </a>
+                     </li>
+                     <li>
+                        <a href="{% url 'blogcategory' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                          Blogcategory
+                        </a>
+                     </li>
+                     <li>
+                        <a href="{% url 'abouts' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                          About
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="{% url 'blogs' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                          Blog
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="{% url 'blogsubcategory' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                          Blogsucategory
+                        </a>
+                     </li>
+                     <li>
+                        <a href="{%url 'subcategory' %}">
+                           <i class="metismenu-icon fa fa-cog fa-fw fa-lg"></i>
+                           Subcategory
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#">
+                           <i class="metismenu-icon fa fa-power-off fa-fw fa-lg"></i>
+                           Logout
+                        </a>
+                     </li>
+                      
+                   </ul>
+                </div>
+             </div>
+             <!--left sidebar end-->
+          </div>
+          <!--Main body parts goes here-->
+          <div class="app-main__outer mb-5">
+             <div class="app-main__inner">
+ 
+                <div class="app-page-title">
+                   <!-- this is for page  title content on top -->
+                   {% block heading %} {% endblock %}
+                </div>
+                <!-- the body content goes here -->
+                {% block home %} {% endblock %}
+             </div>
+ 
+ 
+          </div>
+       </div>
+    </div>
+    <!--<script type="text/javascript" src="/static/spadashboard/scripts/main.js"></script>-->
+    <script type="text/javascript"
+       src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <!--data tables cdn-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+ 
+    <!-- select 2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+    <!--datatables cdn-->
+    <script>
+       function dismissFunction() {
+          document.getElementById("msg_display").style.display = "none";
+       }
+    </script>
+ </body>
+ 
+ </html>

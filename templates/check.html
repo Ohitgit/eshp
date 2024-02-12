@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        <form method="post">
+            {% csrf_token %}
+            <label for="checkbox_name">Checkbox</label>
+            {% for x in page_data %}
+            <input type="checkbox" name="checkbox_name" {% if x.is_checked %}checked{% endif %}>{{x.title}}
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+        
+    </form>
+</body>
+</html>

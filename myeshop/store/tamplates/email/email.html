@@ -1,0 +1,24 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+<form action="" method="post">
+{% csrf_token %}
+           <div class="form-group">
+          <label>Name</label>
+             <input type="text" class="form-control" name="name" placeholder="please enter Name">
+           </div>
+
+    <div class="form-group">
+          <label>emalil</label>
+             <input type="email" class="form-control" name="email" placeholder="please enter Name">
+           </div>
+    <div class="form-group">
+        <label>Message</label>
+        <textarea name="mssg" class="form-control"></textarea>
+    </div>
+<button class="btn btn-primary">Send</button>
+</form>
+
+
+
+{% endblock content %}

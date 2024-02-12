@@ -1,0 +1,290 @@
+{% extends 'webapp/index.html' %}
+{% load static %}
+{% block home %}
+<div id="banner-area" class="banner-area" style="background-image:url(/static/images/banner/banner1.jpg)">
+  <div class="banner-text">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="banner-heading">
+                <h1 class="banner-title">BLOG</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item"><a href="#">ALL BLOG</a></li>
+                    </ol>
+                </nav>
+              </div>
+          </div><!-- Col end -->
+        </div><!-- Row end -->
+    </div><!-- Container end -->
+  </div><!-- Banner text end -->
+</div><!-- Banner area end --> 
+
+<section id="main-container" class="main-container">
+  <div class="container">
+  
+    <div class="row">
+      
+      <div class="col-lg-8 mb-5 mb-lg-0">
+      {% for x in blog %}
+        <div class="post">
+          <div class="post-media post-image">
+            <img loading="lazy" src="{{ x.image.url }}" class="img-fluid" alt="post-image">
+          </div>
+
+          <div class="post-body">
+            <div class="entry-header">
+              <div class="post-meta">
+                <span class="post-author">
+                  <i class="far fa-user"></i><a href="#"> {{x.user_id}}</a>
+                </span>
+                <span class="post-cat">
+                  <i class="far fa-folder-open"></i><a href="#"> {{x.category}}</a>
+                </span>
+                <span class="post-meta-date"><i class="far fa-calendar"></i> {{x.date|date:"F d, Y"}}</span>
+                {% comment %} <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
+                    class="comments-link">Comments</a></span> {% endcomment %}
+              </div>
+              <h2 class="entry-title">
+                <a href="#">{{x.title}}</a>
+              </h2>
+            </div><!-- header end -->
+
+            <div class="entry-content">
+              <p>{{x.dsc}}</p>
+            </div>
+
+            <div class="post-footer">
+              <a href="{%url 'blog_detail' x.slug  %}" class="btn btn-primary">Continue Reading</a>
+               <div class="share-items mt-2">
+                <ul class="post-social-icons list-unstyled">
+                  <li class="social-icons-head">Share:</li>
+                  <li><a href="https://twitter.com/intent/tweet?url=https://example.com/blog-post" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                  <li> <a href="https://facebook.com/intent/facebook?url=https://example.com/blog-post" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                  <li> <a href="https://instagram.com/intent/instagram?url=https://example.com/blog-post" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                 
+                </ul>
+              </div>
+            </div>
+      
+          </div><!-- post-body end -->
+        </div><!-- 1st post end -->
+       
+
+        {% endfor %}
+
+ 
+        {% comment %} <div class="post">
+          <div class="post-media post-video">
+            <div class="embed-responsive embed-responsive-16by9">
+              <!-- Change the url -->
+              <iframe class="embed-responsive-item" src="//player.vimeo.com/video/153089270?title=0&amp;byline=0&amp;portrait=0&amp;color=8aba56" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="post-body">
+            <div class="entry-header">
+              <div class="post-meta">
+                <span class="post-author">
+                  <i class="far fa-user"></i><a href="#"> Admin</a>
+                </span>
+                <span class="post-cat">
+                  <i class="far fa-folder-open"></i><a href="#"> News</a>
+                </span>
+                <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
+                <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
+                    class="comments-link">Comments</a></span>
+              </div>
+              <h2 class="entry-title">
+                <a href="news-single.html">Thandler Airport Water Reclamation Facility Expansion Project Named</a>
+              </h2>
+            </div><!-- header end -->
+
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur ...</p>
+            </div>
+
+            <div class="post-footer">
+              <a href="news-single.html" class="btn btn-primary">Continue Reading</a>
+            </div>
+
+          </div><!-- post-body end -->
+        </div><!-- 2nd post end --> {% endcomment %}
+
+        {% comment %} <div class="post">
+          <div class="post-media post-image">
+            <img loading="lazy" src="{%static 'images/news/news3.jpg'%}" class="img-fluid" alt="post-image">
+          </div>
+
+          <div class="post-body">
+            <div class="entry-header">
+              <div class="post-meta">
+                <span class="post-author">
+                  <i class="far fa-user"></i><a href="#"> Admin</a>
+                </span>
+                <span class="post-cat">
+                  <i class="far fa-folder-open"></i><a href="#"> News</a>
+                </span>
+                <span class="post-meta-date"><i class="far fa-calendar"></i> June 14, 2016</span>
+                <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#"
+                    class="comments-link">Comments</a></span>
+              </div>
+              <h2 class="entry-title">
+                <a href="news-single.html">Silicon Bench and Cornike Begin Construction of Large-Scale Solar Facilities
+                  for Trade</a>
+              </h2>
+            </div><!-- header end -->
+
+            <div class="entry-content">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur ...</p>
+            </div>
+
+            <div class="post-footer">
+              <a href="news-single.html" class="btn btn-primary">Continue Reading</a>
+            </div>
+
+          </div><!-- post-body end -->
+        </div><!-- 3rd post end --> {% endcomment %}
+
+        <nav class="paging" aria-label="Page navigation example">
+          <ul class="pagination">
+           {% if blog.has_previous %}
+
+    <li class="page-item"><a class="page-link" href="?page=1">First<a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ blog.previous_page_number }}">Previous</a></li>
+
+{% endif %} 
+            {% for page_num in page_range %}
+             {% if page_num == blog.number %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{page_num}}</a></li>
+            {% endif %}
+            {% endfor %}
+            
+           {% if blog.has_next %}
+           
+              <li class="page-item"><a class="page-link" href="?page={{ blog.next_page_number }}">Next</a></li>
+              <li class="page-item"><a class="page-link" href="?page={{ blog.paginator.num_pages }}">Last</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+
+{% comment %} {% if blog.has_previous %}
+    <a href="?page=1">first</a>
+    <a href="?page={{ blog.previous_page_number }}">previous</a>
+{% endif %} {% endcomment %}
+
+ {% comment %} {% for page_num in page_range %}
+    {% if page_num == blog.number %}
+        <span>{{ page_num }}</span>
+    {% else %}
+        <a href="?page={{ page_num }}">{{ page_num }}</a>
+    {% endif %}
+{% endfor %} {% endcomment %}
+
+{% comment %} {% if blog.has_next %}
+    <a href="?page={{ blog.next_page_number }}">next</a>
+    <a href="?page={{ blog.paginator.num_pages }}">last</a>
+{% endif %} {% endcomment %}
+      </div>
+      
+      <!-- Content Col end -->
+
+      <div class="col-lg-4">
+
+        <div class="sidebar sidebar-right">
+          <div class="widget recent-posts">
+            <h3 class="widget-title">Recent Posts</h3>
+            <ul class="list-unstyled">
+            {% for x in blog %}
+              <li class="d-flex align-items-center">
+                <div class="posts-thumb">
+                  <a href="#"><img loading="lazy" alt="img" src="{{x.image.url}}"></a>
+                </div>
+                <div class="post-info">
+                  <h4 class="entry-title">
+                    <a href="#">{{x.dsc|truncatewords:20}}</a>
+                  </h4>
+                </div>
+              </li><!-- 1st post end-->
+              {% endfor %}
+
+              {% comment %} <li class="d-flex align-items-center">
+                <div class="posts-thumb">
+                  <a href="#"><img loading="lazy" alt="img" src="{%static 'images/news/news2.jpg'%}"></a>
+                </div>
+                <div class="post-info">
+                  <h4 class="entry-title">
+                    <a href="#">Thandler Airport Water Reclamation Facility Expansion Project Named</a>
+                  </h4>
+                </div>
+              </li><!-- 2nd post end-->
+
+              <li class="d-flex align-items-center">
+                <div class="posts-thumb">
+                  <a href="#"><img loading="lazy" alt="img" src="{%static 'images/news/news3.jpg'%}"></a>
+                </div>
+                <div class="post-info">
+                  <h4 class="entry-title">
+                    <a href="#">Silicon Bench And Cornike Begin Construction Solar Facilities</a>
+                  </h4>
+                </div>
+              </li><!-- 3rd post end--> {% endcomment %}
+
+            </ul>
+
+          </div><!-- Recent post end -->
+
+          <div class="widget">
+            <h3 class="widget-title">Categories</h3>
+            <ul class="arrow nav nav-tabs">
+            {% for x in blog %}
+              <li><a href="#">{{x.category}}</a></li>
+              {% endfor %}
+              
+             
+            </ul>
+          </div><!-- Categories end -->
+
+          <div class="widget">
+            <h3 class="widget-title">Archives </h3>
+            <ul class="arrow nav nav-tabs">
+              <li><a href="#">Feburay 2016</a></li>
+              <li><a href="#">January 2016</a></li>
+              <li><a href="#">December 2015</a></li>
+              <li><a href="#">November 2015</a></li>
+              <li><a href="#">October 2015</a></li>
+            </ul>
+          </div><!-- Archives end -->
+
+          <div class="widget widget-tags">
+            <h3 class="widget-title">Tags </h3>
+
+            <ul class="list-unstyled">
+              <li><a href="#">Construction</a></li>
+              <li><a href="#">Design</a></li>
+              <li><a href="#">Project</a></li>
+              <li><a href="#">Building</a></li>
+              <li><a href="#">Finance</a></li>
+              <li><a href="#">Safety</a></li>
+              <li><a href="#">Contracting</a></li>
+              <li><a href="#">Planning</a></li>
+            </ul>
+          </div><!-- Tags end -->
+
+
+        </div><!-- Sidebar end -->
+      </div><!-- Sidebar Col end -->
+
+    </div><!-- Main row end -->
+
+  </div><!-- Container end -->
+</section><!-- Main container end -->
+
+{%endblock%}

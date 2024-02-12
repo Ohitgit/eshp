@@ -1,0 +1,264 @@
+{% extends 'dashboard/index.html' %} 
+{% load static %} {% block heading %}
+
+<div class="page-title-wrapper">
+	<div class="page-title-heading">
+		<div class="page-title-icon">
+			<i class="fa fa-list-alt icon-gradient bg-mean-fruit">
+			</i>
+		</div>
+		<div>
+			CMS (Content Management System)
+			<div class="page-title-subheading">You can manage your website contents here.
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="page-title-actions">
+		<button id="btnaddform" type="button" class="btn btn-info">
+			<span class="btn-icon-wrapper">
+				<i class="fa fa-cog fa-fw"></i>
+			</span>
+			Update CMS
+		</button>
+	</div> -->
+</div>
+{% endblock %}
+{% block home %}
+
+
+
+<div id="accordion">
+    <div class="card">
+      <div class="card-header" id="Homeheading"  data-toggle="collapse" data-target="#HomeCollapse" aria-expanded="true" aria-controls="HomeCollapse">
+        <div class="col-6"><h5 class="mb-0">Home Page</h5></div>
+        
+      </div>
+  
+      <div id="HomeCollapse" class="collapse show" aria-labelledby="Homeheading" data-parent="#accordion">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 text-right mb-1">
+                    <button id="btnaddform" type="button" class="btn btn-info">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-cog fa-fw"></i>
+                        </span>
+                        Update CMS
+                    </button>
+                </div>
+          <div class="col-12 border p-3 shadow rounded">
+            <h4>Update Slider Image</h4>
+            <label for="">Img alt name</label>
+            <input type="text" class="form-control" placeholder="slider-img-1">
+            <label for="">Upload Img</label>
+            <input type="file" class="form-control">
+            <div class="btn-group pull-right mt-2">
+                <button type="button" class="btn btn-success btn-sm">Update</button>
+                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingAbout">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#AboutCollapse" aria-expanded="false" aria-controls="AboutCollapse">
+              About Page
+            </button>
+          </h5>
+        </div>
+        <div id="AboutCollapse" class="collapse" aria-labelledby="headingAbout" data-parent="#accordion">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="ProductHeader">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#ProductCollapse" aria-expanded="false" aria-controls="ProductCollapse">
+              Product Page
+            </button>
+          </h5>
+        </div>
+        <div id="ProductCollapse" class="collapse" aria-labelledby="ProductHeader" data-parent="#accordion">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="BlogHeader">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#blogCollapse" aria-expanded="false" aria-controls="blogCollapse">
+                Product Page
+            </button>
+          </h5>
+        </div>
+        <div id="blogCollapse" class="collapse" aria-labelledby="BlogHeader" data-parent="#accordion">
+          <div class="card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--add city start -->
+<div class="container-fluid p-3 mb-3 rounded bg-white" id="tbllistsection">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<h4>Add Form</h4>
+			<hr />
+		</div>
+	</div>
+	<form method="POST">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-8 form-group">
+				<label class="label" for="city">Enter Name</label>
+				<input type="text" placeholder="" name="name" class="form-control" required/>
+			</div>
+			<div class="col-4 form-group pt-2"><br>
+				<input type="submit" class="btn btn-lg btn-primary font-weight-bold" value="Add New Form">
+			</div>
+		</div>
+	</form>
+</div>
+<!--add city end-->
+
+
+<!--city list here-->
+<div class="container-fluid p-3 mb-3 rounded bg-white">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<h4>Form Details</h4>
+			<hr />
+		</div>
+		<div class="col-md-12">
+			<table class="table table-bordered table-striped text-center " id="dt_id">
+				<thead class="alert-light">
+					<tr>
+						<th>NAME</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					<tr>
+						<td><input type="hidden" name="{{ city.id }}" value="">{{ city.name }}</td>
+						<td class="btn-group" style="border:none">
+														<button onclick="" data-toggle="modal"
+								data-target="#editModal" class="btn btn-primary text-white">
+								<i class="fa fa-fw fa-pencil"></i>&nbsp;Edit
+							</button>
+							
+							<button type="button" onclick="" data-toggle="modal"
+									data-target="#delete_modal" class="btn btn-danger"><i class="fa fa-fw fa-trash"></i>
+										&nbsp;Delete
+							</button>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="container">
+		<div class="modal" id="editModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content p-3">
+					<div class="modal-header p-1">
+						<h4 class="modal-title text-center">Edit Form</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<form id="update_form" method="POST">
+							{% csrf_token %}
+							<div class="form-group">
+								<label for="name" class="label">Change Name</label>
+								<input id="city_name" type="text" name="name" class="form-control" required="required"/>
+							</div>
+							<div class="form-group text-right">
+								<button type="submit" class="btn btn-sm btn-success">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="delete_modal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content p-3">
+				<div class="modal-header p-1">
+					<h4 class="modal-title text-center">Delete Form</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure to delete Form</p>
+					<div class="text-right">
+						<a id="city_delete" class="btn btn-danger text-white">Delete</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--data tables cdn-->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<!--data tables cdn-->
+
+<script>
+ $(document).ready( function () {
+     $('#dt_id').DataTable({
+         dom: 'Bfrtip',
+         buttons: [
+             // 'copyHtml5',
+             // 'excelHtml5',
+             'csvHtml5',
+             'pdfHtml5'
+         ]
+     });
+ });
+</script>
+
+
+
+{% endblock %}
+

@@ -1,0 +1,49 @@
+{% extends 'base/index.html' %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger" role="alert">
+ {{message}}
+  </div>
+  {% endfor %}
+{% endif %}
+<a href="{% url 'store' %}" class="btn btn-primary mt-2 ml-5 "> Add Notes </a>
+<div class="container col-lg-6">
+    <div class="row">
+        <form action="">
+          <div class="form-group">
+              <input class="form-control" placeholder="Please Enter Name" name="note">
+           <button class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+        <table class="table">
+            <tr>
+                <th>id</th>
+                <th>category name</th>
+                <th>product name</th>
+                 <th>notes</th>
+                <th>description</th>
+                <th>Action</th>
+            </tr>
+            <tbody>
+            {% if notes %}
+            {% for item in notes %}
+             <tr>
+                 <td>{{item.id}}</td>
+                 <td>{{item.cat}}</td>
+                 <td>{{item.pro}}</td>
+
+                 <td>{{item.notes}}</td>
+                 <td>{{item.description}}</td>
+                 <td><a onclick=' return confirm("Are you want edit") ' href="{% url 'apps-edit' item.id %}" class="btn btn-primary" >Edit</a> <a onclick=' return confirm("Are you want Delete")' href="{% url 'del' item.id %}" class="btn btn-danger">Delete</a></td>
+             </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+         {% else  %}
+            <h1 class="text-center"> Not data Found </h1>
+            {% endif %}
+    </div>
+</div>
+{% endblock content %}

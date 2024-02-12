@@ -1,0 +1,262 @@
+
+{% extends 'webapp/index.html' %}
+{% load static %}
+{% block home %}
+<style>
+    #otp_1{display: none;}
+    #request-otp{display: block;}
+
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 hd-bg">
+            <h1 class="text-center text-center text-white">FUND TRANSFER</h1>
+        </div>
+    </div>
+</div>
+{% comment %} <div class="container-fluid mt-3 card card-l">
+    <div class="row">
+        <div class="col-sm-8 col-lg-8 col-md-8 pd-10">
+            <a href="{%url 'b_send_to_money_other'%}"><h5 class="pt-2"> Send money to other Divepay Business Account </h5></a>
+        </div>
+        <div class="col-sm-2 pd-10 ml-auto f-25"><a>Fee &nbsp;1%</a></div>
+    </div>
+</div>  {% endcomment %}
+<div class="container-fluid mt-5" style="width:100%">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 primary-bg pt-2">
+            <a class="text-white" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                aria-controls="collapseExample">
+                <h6>Send money to other Divepay Local Depositor Account <span class="float-right">1%</span></h6>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="text-center text-danger mt-2 font-weight-bold">
+    <span style="color: red;">{{ error }}</span>
+    <span style="color: red;" class="mt-5">{{ errorx }}</span>
+    <span style="color: red;" class="mt-5">{{ errorwal }}</span>
+</div>
+<div class="container-fluid mt-5">
+    <div class="collapse card row" id="collapseExample" style="padding:20px">
+        <form method="POST" enctype="multipart/form-data" id="form_subm">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <label class="bg-b form-control text-white">Fund Transfer To</label>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="text" class="form-control w-100" onblur="check_email()" name='receiver' id='receiver'
+                        placeholder="Enter Email ID / User Name" required>
+                     <span style="color: red;" class="mt-5" id="msg"></span> 
+                </div>
+                <!-- <span style="color: red;" class="mt-5">{{ errorx }}</span> -->
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <label class="bg-b form-control text-white">Amount to Transfer</label>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <input type="text" name='amount' class="form-control w-100" placeholder="0.00" required id="amount">
+                    <!-- <span style="color: red;">{{ error }}</span> -->
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <label class="bg-b form-control text-white">Select Currency</label>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                    <select class="form-control" name="acc_cur" required="required" id="currency_sel">
+                        <option value="">Select Currency</option>
+                        <option value="USD">{{ usr.currency }}</option>
+						<option value="INR">INR</option>
+                        {% if request.user.userwallet_set.first.usr_eur == 1 %}
+                        <option value="EUR">EUR</option>
+                        {% endif %}
+                        {% if request.user.userwallet_set.first.usr_gbp == 1 %}
+                        <option value="GBP">GBP</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row  pd-10">
+                <div class="col-sm-6 col-md-6">
+                    <label class="bg-b text-white form-control">Description (Optional)</label>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-6 ">
+                    <textarea rows="1" cols="30" name='comment' id='comment' class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row pd-10">
+                <div class="col-sm-6 col-md-6">
+                    <label class="bg-b text-white form-control">OTP</label>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 ">
+                    <input type="text" name='otp' id='otp_1' class="form-control" required>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 " id="div_tag">
+                    <a href="" class="btn btn-outline-primary btn-md float-right" id="request-otp">Request OTP</a>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-12 col-md-12">
+                    <button type="submit" class="btn btn-primary btn-block text-white" id="sub_btn">Send Now</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-lg-flex d-md-flex justify-content-center">
+                    <h4>Authentication Code</h4>
+                </div>
+                <div class="d-lg-flex d-md-flex justify-content-center">
+                    <p>Check Your Email</p>
+                </div>
+                <div class="form-group">
+                    <label>Verification Code</label>
+                    <input type="text" class="form-control" placeholder="Enter Verification Code" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#request-otp").click(function (e) {
+        var currency = $('#currency_sel');
+        if(document.getElementById("receiver").value.length == 0){alert("Please fill receiver details...");$('#receiver').focus();e.preventDefault();}
+        else if(document.getElementById("amount").value.length == 0){alert("Please enter an amount..");$('#amount').focus();e.preventDefault();}
+        else if (currency.val() === '') {alert("Please select a currency from the list!");$('#currency_sel').focus();e.preventDefault();}
+        else{
+            e.preventDefault();
+            var reciver =document.getElementById("receiver").value
+              var token=$('input[name=csrfmiddlewaretoken]').val()
+            $.ajax({
+                type: "POST",
+                url: "{% url 'otp-trigger' %}",
+                data:
+               { 'reciver':reciver,
+               csrfmiddlewaretoken:token,
+                },
+                success: function () {
+                    
+                    alert('please check registered mail for OTP..')
+                    document.getElementById('otp_1').style.display = 'block';
+                    document.getElementById('request-otp').style.display = 'none';
+                },
+                error:function(){alert('only personal account send..!')}
+            });
+            e.preventDefault();
+            }
+        });
+    })
+
+    $('#sub_btn').click(function(e){
+        if (document.getElementById('otp_1').value.length == 0){alert('Please fill all the details and request OTP...!');e.preventDefault();}
+    })
+
+    $('#form_subm').submit(function(e){
+        e.preventDefault();
+        var form = $(this);
+        console.log('formsssss2222!',form.serialize())
+        $.ajax({
+            type:'POST',
+            url:"",
+            data:form.serialize(),
+            statusCode:{
+                200:function(){swal({title:'Continue....', type:'success', icon:'success', button:'OK'}).then(okay=>{if(okay){location.replace('/local_depositor/fund_transfer');}})},
+				
+                201:function(){swal({title:'Payee added successfully....', type:'success', icon:'success', button:'OK'}).then(okay=>{if(okay){location.reload();}})},
+                400:function(){swal({title:'Invalid OTP....!', type:'error', icon:'error', button:'OK'}).then(okay=>{if (okay){e.preventDefault();}})},
+                401:function(){swal({title:"You don't have sufficient balance to transact....!", type:'error', icon:'error', button:'OK'}).then(okay=>{if (okay){e.preventDefault();}})},
+                402:function(){swal({title:'Receiver not having EUR currency....!', type:'error', icon:'error', button:'OK'}).then(okay=>{if (okay){e.preventDefault();}})},
+                403:function(){swal({title:'Receiver not having GBP currency....!', type:'error', icon:'error', button:'OK'}).then(okay=>{if (okay){e.preventDefault();}})},
+                404:function(){swal({title:'Please enter valid Marchant email id or User name....!', type:'error', icon:'error', button:'OK'}).then(okay=>{if (okay){location.reload();}})},
+                405:function(){swal({title:'User already exist....!', type:'error', icon:'error', button:'OK'}).then(okay=>{if (okay){location.reload();}})},
+                406:function(){swal({title:'please select Business user client....!', type:'error', icon:'error', button:'OK'}).then(okay=>{if (okay){e.preventDefault();}})},
+            }
+        })
+    })
+	
+	
+	function currencyConvertor() {
+                    
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						
+						let usd_amount = document.getElementById("amount").value;
+						let currency_value = JSON.parse(this.responseText);
+						var acc_curr = "USD";
+						var rat = "3.0";
+						session_val=sessionStorage.getItem("currency");
+						console.log('----usdkkk---',session_val,rat)
+						// var eur_rat = "";
+						// var gbp_rat = "";
+						if (acc_curr == "USD") {
+							currency_value = currency_value.rates.USD;
+							var con = currency_value * usd_amount;
+							var charge = con * rat / 100;
+							var convert = con - charge;
+							//return convert
+							console.log('----usd---',convert)
+							document.getElementById("custId").value = convert.toFixed(2);
+						}
+						// } else if (acc_curr.value == "GBP") {
+						//     currency_value = currency_value.rates.GBP;
+						//     var con = currency_value * usd_amount;
+						//     var charge = con * gbp_rat / 100;
+						//     var convert = con - charge;
+						//     document.getElementById("txt_inr_amount").value = convert.toFixed(2);
+						// } else {
+						//     currency_value = currency_value.rates.USD;
+						//     var con = currency_value * usd_amount;
+						//     var charge = con * rat / 100;
+						//     var convert = con - charge;
+						//     document.getElementById("txt_inr_amount").value = convert.toFixed(2);
+						// };
+					};
+				};
+				xhttp.open("GET", "https://api.exchangerate.host/latest?base=INR&v=_actual_date_", true);
+				xhttp.send();
+                }
+	function check_email(){
+		email=document.getElementById("receiver").value
+		var base_url = window.location.origin;
+		$.get(base_url+"/local_depositor/check_email/"+email+"/", function(data) {
+		  console.log('=====INr====',data)
+		  if(data.data == 0 ){
+		  <!-- document.getElementById("div_tag").innerHTML = '<a href="" class="btn btn-outline-primary btn-md float-right" id="request-otp">Request OTP</a>'; -->
+		  document.getElementById("msg").innerHTML = ''
+		  }else{
+		  document.getElementById("msg").innerHTML = "Please Enter Register Email ID"
+		  <!-- document.getElementById("div_tag").innerHTML="" -->
+		  
+		  }
+		  
+		  
+		});
+		}
+</script>
+{% endblock %}
