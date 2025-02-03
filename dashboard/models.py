@@ -166,25 +166,4 @@ class Slide1(models.Model):
      engineerdesc= models.TextField(blank=True,null=True)
 
 
-import qrcode
-from PIL import Image, ImageDraw
-from io import BytesIO
-from django.core.files import File
-import random
-class PageData(models.Model):
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    is_checked = models.BooleanField(default=False)
-    image=models.ImageField(upload_to='qrcode',blank=True)
-    def save(self,*args,**kwargs):
-      qrcode_img=qrcode.make(self.title)
-      canvas=Image.new("RGB", (300,300),"white")
-      draw=ImageDraw.Draw(canvas)
-      canvas.paste(qrcode_img)
-      buffer=BytesIO()
-      canvas.save(buffer,"PNG")
-      self.image.save(f'image{random.randint(0,9999)}',File(buffer),save=False)
-      canvas.close()
-      super().save(*args,**kwargs)
-   
 

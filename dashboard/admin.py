@@ -18,7 +18,7 @@ admin.site.register(Comment)
 admin.site.register(Reply)
 admin.site.register(Slide)
 admin.site.register(Slide1)
-admin.site.register(PageData)
+
 class ProductAdmin(SummernoteModelAdmin):
     model = Product
     summernote_fields = ('desc',)
