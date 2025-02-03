@@ -25,10 +25,10 @@ def get_product_data():
     return products
 
 def home(request):
-    # abc=Product.objects.all()
+    prod=Product.objects.all()
     # ss=abc[0]
     # print('fff',ss.title)
-    products=get_product_data()
+    products=prod
 
     context = {
     
@@ -37,29 +37,29 @@ def home(request):
     }
     return render(request, 'webapp/home.html',context)
 
-def get_slide_data():
-    slide = cache.get('slide')
-    if not slide:
+# def get_slide_data():
+#     slide = cache.get('slide')
+#     if not slide:
         
-        slide= list(Slide.objects.all())
-        cache.set('slide', slide)
-    # print('-----data from cache silde ',slide)
-    return slide
+#         slide= list(Slide.objects.all())
+#         cache.set('slide', slide)
+#     # print('-----data from cache silde ',slide)
+#     return slide
 
-def get_about_data():
-    about = cache.get('all_about ')
-    if not about :
-        about= About.objects.get(status=1)
-        cache.set('all_about',about)
-    print('-----data from cache all_about ',about)
-    return about
+# def get_about_data():
+#     about = cache.get('all_about ')
+#     if not about :
+#         about= About.objects.get(status=1)
+#         cache.set('all_about',about)
+#     print('-----data from cache all_about ',about)
+#     return about
 
 def about(request):
-    products=get_product_data()
-    slide=get_slide_data()
+    products=Product.objects.all()
+    slide=Slide.objects.all()
     
     try:
-        about=get_about_data()
+        about=About.objects.get(status=1)
     except About.DoesNotExist:
            about=None
     context = {
@@ -73,7 +73,7 @@ def about(request):
     return render(request, 'webapp/about.html',context)
 
 def contact(request):
-    products=get_product_data()
+    products=Product.objects.all()
     
     context = {'products':products}
     try:
@@ -120,8 +120,8 @@ def get_faq_data():
     return faq
 
 def faq(request):
-    faq=get_faq_data()
-    products=get_product_data()
+    faq=Faq.objects.all()
+    products=Product.objects.all()
     context = {
             'faq':faq,
            'products':products,
@@ -142,8 +142,8 @@ def get_testimonial_data():
     return testimonial
 
 def testimonial(request):
-    products=get_product_data()
-    testmonial=get_testimonial_data()
+    products=Product.objects.all()
+    testmonial=Testimonial.objects.all()
     context = {
            'testmonial':testmonial,
            'products':products,
@@ -158,7 +158,7 @@ def pricing(request):
 
 
 def all_blog(request):
-    products=get_product_data()
+    products=Product.objects.all()
     try:
         blogs=Blog.objects.all()
         paginator = Paginator(blogs, 5)
@@ -183,8 +183,7 @@ def get_comment_data():
     return comment
 
 def blog_detail(request,slug):
-    comment=get_comment_data()
-  
+    comment=Comment.objects.all()
     abc=Blog.objects.values_list()
     for x in abc:
      print('ddd',x[0])
