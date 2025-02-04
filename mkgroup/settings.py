@@ -292,6 +292,4 @@ EMAIL_HOST_USER = 'mohitpatidar.1998.24@gmail.com'
 EMAIL_HOST_PASSWORD = 'iclqfemfgfhlupin'
 
 
-MINIFY_STATIC = True
-BROTLI_STATIC_COMPRESSION = True
-GZIP_STATIC_COMPRESSION = True
+
